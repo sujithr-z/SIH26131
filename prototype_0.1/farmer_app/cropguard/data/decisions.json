@@ -1,0 +1,11 @@
+[
+    {
+        "decision_id": "DEC-1787734937-5224",
+        "event_id": "EVENT-0001",
+        "action": "ALERT",
+        "disease": "Early Blight",
+        "risk_label": "82/100 HIGH",
+        "officer": "Agri. Officer",
+        "timestamp": "2026-08-26T09:02:17.560Z"
+    }
+]

@@ -1,0 +1,22 @@
+{
+    "observations": [
+        {
+            "observation_id": "OBS-000001",
+            "farmer_id": "002",
+            "disease": "Early Blight",
+            "confidence": 0.942,
+            "timestamp": "2026-08-26T09:00:06+00:00",
+            "crop": "Tomato",
+            "image_path": "uploads/farmer002_1787734806.jpg"
+        },
+        {
+            "observation_id": "OBS-000002",
+            "farmer_id": "003",
+            "disease": "Early Blight",
+            "confidence": 0.942,
+            "timestamp": "2026-08-26T09:01:09+00:00",
+            "crop": "Tomato",
+            "image_path": "uploads/farmer003_1787734869.jpg"
+        }
+    ]
+}

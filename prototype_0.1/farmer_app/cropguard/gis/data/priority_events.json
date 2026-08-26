@@ -1,0 +1,8 @@
+{
+    "events": [],
+    "metadata": {
+        "total_events": 0,
+        "last_updated": "2026-08-26T14:26:00Z",
+        "description": "Derived surveillance event database storing triggered priority disease events for the geospatial computation stage."
+    }
+}

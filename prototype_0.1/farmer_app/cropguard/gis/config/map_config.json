@@ -1,0 +1,44 @@
+{
+    "map_extent": {
+        "min_latitude": 9.20,
+        "max_latitude": 9.35,
+        "min_longitude": 76.40,
+        "max_longitude": 76.55
+    },
+    "map_file": {
+        "path": "input/sample_map.png",
+        "description": "Satellite/base map image covering the geographic extent defined above"
+    },
+    "visualization": {
+        "point_size": 100,
+        "point_color": "#FF4444",
+        "point_marker": "o",
+        "label_font_size": 10,
+        "label_offset": 0.005,
+        "title": "Disease Detection Map",
+        "dpi": 150
+    },
+    "analysis": {
+        "distance_characteristic_km": 5.0,
+        "weights": {
+            "distance": 0.5,
+            "humidity": 0.3,
+            "confidence": 0.2
+        },
+        "risk_thresholds": {
+            "low": 30,
+            "moderate": 60,
+            "high": 80,
+            "extreme": 90
+        }
+    },
+    "output": {
+        "analyzed_map_path": "output/analyzed_map.png",
+        "results_json_path": "output/gis_results.json"
+    },
+    "metadata": {
+        "version": "1.0.0",
+        "created": "2026-08-26",
+        "description": "Configuration for GIS engine: defines geographic extent of map image, visualization parameters, and risk analysis settings"
+    }
+}
