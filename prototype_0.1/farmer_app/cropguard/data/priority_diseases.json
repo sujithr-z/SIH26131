@@ -1,0 +1,13 @@
+{
+    "priority_diseases": [
+        "Late Blight",
+        "Bacterial Blight",
+        "Early Blight"
+    ],
+    "config_metadata": {
+        "version": "1.0.0",
+        "last_updated": "2026-08-26",
+        "threshold_trigger_count": 2,
+        "description": "Defines the list of high-priority agricultural diseases monitored by the surveillance engine. Detections exceeding the threshold will trigger a priority event for the geospatial computation stage."
+    }
+}

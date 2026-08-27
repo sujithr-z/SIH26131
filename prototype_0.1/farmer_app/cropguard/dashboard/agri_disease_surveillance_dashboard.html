@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agricultural Disease Surveillance System — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  /* -- Surfaces (light command-center theme) -- */
+  --page-bg:#ffffff;
+  --surface-0:#ffffff;
+  --surface-1:#f6f8fb;
+  --surface-2:#ffffff;
+  --surface-3:#eef1f6;
+
+  /* -- Borders -- */
+  --border:rgba(15,23,42,.10);
+  --border-strong:rgba(15,23,42,.18);
+  --border-success:rgba(29,158,117,.35);
+
+  /* -- Text -- */
+  --text-primary:#0f172a;
+  --text-secondary:#4b5768;
+  --text-muted:#8a94a6;
+
+  /* -- Accents -- */
+  --bg-accent:rgba(29,158,117,.12);
+  --text-accent:#1d9e75;
+  --bg-success:rgba(29,158,117,.12);
+  --bg-warning:rgba(239,159,39,.16);
+
+  --shadow-card:0 1px 2px rgba(15,23,42,.06), 0 8px 24px -8px rgba(15,23,42,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(45,201,142,.05), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(56,120,220,.04), transparent 55%),
+    var(--page-bg);
+  color:var(--text-primary);
+  padding:28px 16px;
+  display:flex;
+  justify-content:center;
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.app-shell{width:100%;max-width:1440px}
+.app{display:grid;grid-template-rows:56px auto;grid-template-columns:210px 1fr;min-height:800px;background:var(--surface-0);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;font-size:13px;box-shadow:var(--shadow-card)}
+.topbar{grid-column:1/-1;background:var(--surface-2);border-bottom:0.5px solid var(--border-strong);display:flex;align-items:center;padding:0 16px;gap:16px}
+.logo-area{display:flex;flex-direction:column;gap:1px}
+.logo-title{font-size:12px;font-weight:500;color:var(--text-primary);letter-spacing:.03em;text-transform:uppercase}
+.logo-sub{font-size:10px;color:var(--text-secondary);letter-spacing:.02em}
+.topbar-center{flex:1;display:flex;align-items:center;justify-content:center;gap:8px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.status-label{font-size:11px;color:var(--text-secondary)}
+.dt{font-size:11px;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.user-chip{display:flex;align-items:center;gap:8px}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--bg-accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--text-accent)}
+.user-info{display:flex;flex-direction:column;gap:1px}
+.user-name{font-size:11px;font-weight:500;color:var(--text-primary)}
+.user-role{font-size:10px;color:var(--text-muted)}
+.sidebar{background:var(--surface-1);border-right:0.5px solid var(--border);padding:12px 0;display:flex;flex-direction:column;gap:2px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;border-radius:0;font-size:12px;color:var(--text-secondary);transition:background .15s}
+.nav-item:hover{background:var(--surface-0);color:var(--text-primary)}
+.nav-item.active{background:var(--bg-success);color:#0f6e56;font-weight:500;border-right:2px solid #1d9e75}
+.nav-item i{font-size:15px;flex-shrink:0}
+.nav-divider{height:0.5px;background:var(--border);margin:8px 12px}
+.main{overflow-y:visible;background:var(--surface-0);display:flex;flex-direction:column;gap:0}
+.sidebar{position:sticky;top:0;align-self:start;height:fit-content}
+.pipeline-bar{background:var(--surface-2);border-bottom:0.5px solid var(--border);padding:10px 16px}
+.pipeline-title{font-size:10px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.pipeline-stages{display:flex;align-items:center;gap:0;overflow-x:auto}
+.stage{display:flex;align-items:center;gap:0;flex-shrink:0}
+.stage-node{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 10px;border-radius:6px;cursor:default}
+.stage-num{font-size:9px;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.stage-label{font-size:10px;font-weight:500;color:var(--text-secondary)}
+.stage-node.done{background:var(--bg-success)}.stage-node.done .stage-label{color:#0f6e56}.stage-node.done .stage-num{color:#1d9e75}
+.stage-node.current{background:var(--bg-warning)}.stage-node.current .stage-label{color:#854f0b;font-weight:600}.stage-node.current .stage-num{color:#ba7517}
+.stage-node.pending .stage-label{color:var(--text-muted)}
+.stage-arrow{font-size:10px;color:var(--text-muted);padding:0 3px}
+.priority-banner{background:#fff5f5;border-bottom:2px solid #e24b4a;padding:10px 16px;display:flex;align-items:center;gap:16px}
+.priority-badge{background:#e24b4a;color:#fff;font-size:10px;font-weight:600;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.priority-disease{font-size:14px;font-weight:600;color:#501313}
+.priority-crop{font-size:12px;color:#791f1f}
+.priority-stats{display:flex;align-items:center;gap:16px;margin-left:auto}
+.pstat{display:flex;flex-direction:column;align-items:center;gap:1px}
+.pstat-val{font-size:16px;font-weight:600;color:#a32d2d;font-variant-numeric:tabular-nums}
+.pstat-label{font-size:9px;color:#791f1f;text-transform:uppercase;letter-spacing:.05em}
+.risk-badge-high{background:#e24b4a;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.panels{display:grid;grid-template-columns:230px 1fr 200px;gap:10px;padding:10px 16px;flex:1}
+.card{background:var(--surface-2);border:0.5px solid var(--border);border-radius:10px;overflow:hidden}
+.card-header{padding:10px 12px 8px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:11px;font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em}
+.plant-img{width:100%;height:130px;object-fit:cover;background:linear-gradient(135deg,#2d6a4f 0%,#1b4332 50%,#0a2e1b 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;position:relative}
+.plant-svg{width:80px;height:80px;opacity:.85}
+.plant-meta{padding:10px 12px;display:flex;flex-direction:column;gap:5px}
+.meta-row{display:flex;justify-content:space-between;align-items:baseline}
+.meta-label{font-size:11px;color:var(--text-secondary)}
+.meta-val{font-size:12px;font-weight:500;color:var(--text-primary)}
+.conf-bar-wrap{margin-top:4px}
+.conf-label{font-size:10px;color:var(--text-muted);margin-bottom:3px}
+.conf-bar{height:4px;background:var(--border-strong);border-radius:2px;overflow:hidden}
+.conf-fill{height:100%;border-radius:2px;background:#e24b4a;width:94.2%}
+.map-area{position:relative;background:#0f172a;border-radius:0;min-height:280px;height:280px;overflow:hidden;user-select:none}
+.map-bg{width:100%;height:100%;position:absolute;top:0;left:0;object-fit:cover;object-position:center;transition:opacity .3s ease}
+.gis-svg-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.gis-svg-overlay *{pointer-events:auto}
+.gis-hud-top{position:absolute;top:8px;left:8px;display:flex;gap:4px;z-index:10}
+.gis-toggle-btn{background:rgba(15,23,42,.85);backdrop-filter:blur(6px);border:0.5px solid rgba(255,255,255,.2);color:#cbd5e1;font-size:9px;font-weight:500;padding:3px 7px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:3px;transition:all .15s ease}
+.gis-toggle-btn.active{background:#1d9e75;border-color:#2dd4bf;color:#fff;box-shadow:0 1px 4px rgba(29,158,117,.4)}
+.gis-toggle-btn:hover{background:rgba(30,41,59,.95);color:#fff}
+.gis-compass{position:absolute;top:8px;right:8px;background:rgba(15,23,42,.85);backdrop-filter:blur(6px);border:0.5px solid rgba(255,255,255,.2);border-radius:6px;padding:3px 6px;display:flex;flex-direction:column;align-items:center;color:#f8fafc;font-size:9px;font-weight:700;z-index:10}
+.gis-coords-badge{position:absolute;bottom:8px;left:8px;background:rgba(15,23,42,.88);backdrop-filter:blur(4px);padding:3px 7px;border-radius:4px;font-size:9px;color:#94a3b8;font-variant-numeric:tabular-nums;border:0.5px solid rgba(255,255,255,.15);z-index:10}
+.gis-scale-badge{position:absolute;bottom:8px;right:8px;background:rgba(15,23,42,.88);backdrop-filter:blur(4px);padding:3px 8px;border-radius:4px;font-size:9px;color:#f1f5f9;font-weight:500;border:0.5px solid rgba(255,255,255,.15);z-index:10;display:flex;align-items:center;gap:5px}
+.gis-scale-line{width:36px;height:2px;background:#38bdf8;position:relative}
+.gis-scale-line::before,.gis-scale-line::after{content:'';position:absolute;top:-3px;width:1.5px;height:8px;background:#38bdf8}
+.gis-scale-line::before{left:0}
+.gis-scale-line::after{right:0}
+.gis-pulse-ring{animation:gisPulse 2.2s infinite cubic-bezier(.215,.61,.355,1);transform-origin:center}
+@keyframes gisPulse{0%{r:12px;opacity:.9}70%{r:38px;opacity:0}100%{r:38px;opacity:0}}
+.gis-place-node{cursor:pointer;transition:transform .2s ease}
+.gis-place-node:hover{transform:scale(1.15);filter:drop-shadow(0 0 8px rgba(226,75,74,.8))}
+.gis-dist-line{stroke:#0284c7;stroke-width:1.8;stroke-dasharray:5,3;transition:all .2s ease;cursor:pointer}
+.gis-dist-line:hover{stroke:#38bdf8;stroke-width:2.8;stroke-dasharray:none;filter:drop-shadow(0 0 6px #38bdf8)}
+.gis-tooltip{position:absolute;background:rgba(15,23,42,.95);backdrop-filter:blur(8px);border:0.5px solid rgba(255,255,255,.2);border-radius:6px;padding:6px 10px;color:#fff;font-size:10px;pointer-events:none;z-index:100;box-shadow:0 4px 14px rgba(0,0,0,.5);display:none;min-width:150px;line-height:1.4}
+.map-legend{padding:8px 12px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--surface-2);flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text-secondary)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.map-footer{background:var(--surface-1);padding:7px 12px;border-top:0.5px solid var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.map-stat{font-size:10px;color:var(--text-muted)}.map-stat span{font-weight:500;color:var(--text-secondary)}
+.cluster-badge{background:var(--bg-warning);color:#854f0b;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;margin-left:auto}
+.risk-panel{display:flex;flex-direction:column;gap:0}
+.gauge-area{padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;border-bottom:0.5px solid var(--border)}
+.gauge-wrap{position:relative;width:100px;height:60px}
+.gauge-label{font-size:9px;color:var(--text-muted);text-align:center;text-transform:uppercase;letter-spacing:.04em}
+.risk-score-big{font-size:26px;font-weight:600;color:#a32d2d;font-variant-numeric:tabular-nums}
+.risk-level-badge{background:#fcebeb;color:#a32d2d;font-size:10px;font-weight:600;padding:2px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em}
+.factors{padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.factor-row{display:flex;justify-content:space-between;align-items:center}
+.factor-name{font-size:10px;color:var(--text-secondary)}
+.factor-val{font-size:11px;font-weight:500;color:var(--text-primary);font-variant-numeric:tabular-nums}
+.factor-bar{height:2px;background:var(--border);border-radius:1px;margin-top:1px;overflow:hidden}
+.factor-fill{height:100%;border-radius:1px;background:#e24b4a}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 16px 10px}
+.timeline-card{display:flex;flex-direction:column}
+.timeline-list{padding:8px 12px;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:180px}
+.tl-item{display:flex;gap:10px;position:relative;padding-bottom:10px}
+.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:28px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:#e24b4a;border:2px solid var(--surface-2);flex-shrink:0;z-index:1}
+.tl-dot.threshold{background:#f0952b;width:12px;height:12px}
+.tl-line{width:1.5px;flex:1;background:var(--border-strong);margin-top:-1px}
+.tl-content{flex:1}
+.tl-time{font-size:10px;font-weight:600;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.tl-farmer{font-size:11px;font-weight:500;color:var(--text-primary)}
+.tl-detail{font-size:10px;color:var(--text-secondary)}
+.tl-conf{font-size:10px;color:#a32d2d;font-weight:500}
+.tl-milestone{background:var(--bg-warning);border-left:2px solid #ef9f27;padding:4px 8px;border-radius:0 4px 4px 0;margin-top:2px}
+.tl-milestone-text{font-size:10px;font-weight:600;color:#854f0b}
+.analysis-steps{padding:8px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;max-height:180px}
+.step-row{display:flex;align-items:flex-start;gap:8px}
+.step-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px}
+.step-icon.done{background:var(--bg-success);color:#0f6e56}
+.step-icon.current{background:var(--bg-warning);color:#854f0b}
+.step-icon.pending{background:var(--surface-1);border:0.5px solid var(--border)}
+.step-text{font-size:11px;color:var(--text-secondary);line-height:1.4;padding-top:2px}
+.step-text.done{color:var(--text-primary)}
+.step-text.current{color:#854f0b;font-weight:500}
+.step-connector{width:1.5px;height:8px;background:var(--border);margin-left:8px;flex-shrink:0}
+.decision-panel{display:flex;flex-direction:column;gap:0}
+.decision-inner{padding:12px;display:flex;flex-direction:column;gap:10px}
+.decision-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.decision-question{font-size:12px;color:var(--text-primary);font-weight:500;line-height:1.4}
+.decision-buttons{display:flex;flex-direction:column;gap:8px}
+.btn-alert{background:#a32d2d;color:#fff;border:none;border-radius:8px;padding:10px 12px;cursor:pointer;display:flex;align-items:center;gap:8px;width:100%;text-align:left;transition:background .15s}
+.btn-alert:hover{background:#791f1f}
+.btn-alert-icon{font-size:18px;flex-shrink:0}
+.btn-alert-text{display:flex;flex-direction:column;gap:1px}
+.btn-alert-main{font-size:11px;font-weight:600;letter-spacing:.02em}
+.btn-alert-sub{font-size:10px;opacity:.85}
+.btn-dismiss{background:var(--surface-1);color:var(--text-primary);border:0.5px solid var(--border-strong);border-radius:8px;padding:10px 12px;cursor:pointer;display:flex;align-items:center;gap:8px;width:100%;text-align:left;transition:background .15s}
+.btn-dismiss:hover{background:var(--surface-0)}
+.btn-dismiss-icon{font-size:18px;flex-shrink:0;color:var(--text-secondary)}
+.btn-dismiss-text{display:flex;flex-direction:column;gap:1px}
+.btn-dismiss-main{font-size:11px;font-weight:500}
+.btn-dismiss-sub{font-size:10px;color:var(--text-secondary)}
+.weather-row{display:flex;gap:8px;flex-wrap:wrap;padding:8px 12px}
+.w-item{display:flex;align-items:center;gap:6px;flex:1;min-width:60px}
+.w-icon{font-size:16px;color:var(--text-secondary)}
+.w-val{font-size:13px;font-weight:500;color:var(--text-primary)}
+.w-lbl{font-size:10px;color:var(--text-muted)}
+.report-row{display:flex;gap:8px;padding:8px 12px;flex-wrap:wrap}
+.report-field{display:flex;flex-direction:column;gap:1px;min-width:80px}
+.rf-label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em}
+.rf-val{font-size:11px;font-weight:500;color:var(--text-primary)}
+.report-btns{display:flex;gap:6px;padding:0 12px 10px}
+.rbtn{font-size:11px;padding:6px 12px;border-radius:6px;cursor:pointer;border:0.5px solid var(--border-strong);background:var(--surface-1);color:var(--text-primary);display:flex;align-items:center;gap:5px}
+.rbtn:hover{background:var(--surface-0)}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:100;border-radius:12px}
+.modal{background:var(--surface-2);border:0.5px solid var(--border-strong);border-radius:12px;padding:20px;width:340px;display:flex;flex-direction:column;gap:14px}
+.modal-title{font-size:14px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.modal-icon{font-size:20px;color:#e24b4a}
+.modal-body{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.modal-fields{background:var(--surface-1);border:0.5px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.mf-row{display:flex;justify-content:space-between}
+.mf-label{font-size:11px;color:var(--text-secondary)}
+.mf-val{font-size:11px;font-weight:500;color:var(--text-primary)}
+.modal-btns{display:flex;gap:8px}
+.mbtn-confirm{flex:1;background:#a32d2d;color:#fff;border:none;border-radius:8px;padding:10px;font-size:12px;font-weight:600;cursor:pointer}
+.mbtn-confirm:hover{background:#791f1f}
+.mbtn-cancel{flex:1;background:var(--surface-1);border:0.5px solid var(--border-strong);border-radius:8px;padding:10px;font-size:12px;color:var(--text-primary);cursor:pointer}
+.mbtn-cancel:hover{background:var(--surface-0)}
+.success-modal{text-align:center}
+.success-icon{font-size:40px;color:#0f6e56;margin:0 auto 8px}
+.success-title{font-size:15px;font-weight:600;color:var(--text-primary)}
+.success-body{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.integration-box{background:var(--bg-success);border:0.5px solid var(--border-success);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+.int-title{font-size:11px;font-weight:600;color:#0f6e56}
+.int-sub{font-size:10px;color:#1d9e75}
+.dismiss-modal{text-align:center}
+.dismiss-icon{font-size:40px;color:var(--text-secondary);margin:0 auto 8px}
+.table-section{padding:0 16px 14px}
+.table-wrap{border:0.5px solid var(--border);border-radius:8px;overflow:hidden}
+.det-table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.det-table th{background:var(--surface-1);padding:6px 10px;text-align:left;font-size:10px;font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em;border-bottom:0.5px solid var(--border)}
+.det-table td{padding:6px 10px;border-bottom:0.5px solid var(--border);color:var(--text-primary);font-variant-numeric:tabular-nums}
+.det-table tr:last-child td{border-bottom:none}
+.det-table tr:hover td{background:var(--surface-1)}
+.status-priority{background:#fcebeb;color:#a32d2d;font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px}
+.status-normal{background:var(--surface-1);color:var(--text-secondary);font-size:9px;font-weight:500;padding:2px 6px;border-radius:3px}
+.status-monitoring{background:var(--bg-success);color:#0f6e56;font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px}
+.btn-del-obs{background:transparent;border:0.5px solid rgba(226,75,74,.3);color:#e24b4a;padding:2px 5px;border-radius:4px;cursor:pointer;font-size:10px;transition:all .15s}
+.btn-del-obs:hover{background:#e24b4a;color:#fff}
+.log-bar{background:var(--surface-1);border-top:0.5px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.log-entries{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.pending-badge{background:#fcebeb;color:#a32d2d;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 6px}
+.section-title{font-size:10px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">Agricultural Disease Surveillance System — Official Monitoring Dashboard</h2>
+
+<div class="app-shell">
+<div class="app" id="appRoot" style="position:relative">
+
+<div class="topbar">
+  <div class="logo-area">
+    <div class="logo-title"><i class="ti ti-plant-2" aria-hidden="true" style="margin-right:5px;color:#1d9e75"></i>Agricultural Disease Surveillance System</div>
+    <div class="logo-sub">Official Monitoring &amp; Response Dashboard</div>
+  </div>
+  <div class="topbar-center">
+    <span class="dt" id="clockDisplay">26 Aug 2026 — 15:24:07</span>
+    <span class="status-dot"></span>
+    <span class="status-label">System online</span>
+  </div>
+  <div class="topbar-right">
+    <div class="user-chip">
+      <div class="avatar">AO</div>
+      <div class="user-info">
+        <div class="user-name">Agri. Officer</div>
+        <div class="user-role">Kerala Dept. of Agriculture</div>
+      </div>
+    </div>
+    <i class="ti ti-settings" aria-hidden="true" style="font-size:16px;color:var(--text-muted);cursor:pointer"></i>
+  </div>
+</div>
+
+<div class="sidebar">
+  <div class="nav-item active"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard</div>
+  <div class="nav-item"><i class="ti ti-virus-search" aria-hidden="true"></i>Disease Surveillance</div>
+  <div class="nav-item"><i class="ti ti-map-2" aria-hidden="true"></i>GIS Analysis</div>
+  <div class="nav-item"><i class="ti ti-users" aria-hidden="true"></i>Farmer Reports</div>
+  <div class="nav-divider"></div>
+  <div class="nav-item"><i class="ti ti-database" aria-hidden="true"></i>Disease Database</div>
+  <div class="nav-item"><i class="ti ti-bell-ringing" aria-hidden="true"></i>Alerts</div>
+  <div class="nav-item"><i class="ti ti-file-analytics" aria-hidden="true"></i>Reports</div>
+  <div class="nav-divider"></div>
+  <div class="nav-item"><i class="ti ti-server" aria-hidden="true"></i>System Status</div>
+</div>
+
+<div class="main" id="mainContent">
+
+  <div class="pipeline-bar">
+    <div class="pipeline-title">Disease Response Pipeline Tracking</div>
+    <div class="pipeline-stages">
+      <div class="stage"><div class="stage-node done"><div class="stage-num">01</div><div class="stage-label">Farmer App</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">02</div><div class="stage-label">AI Detection</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">03</div><div class="stage-label">Obs. DB</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">04</div><div class="stage-label">Priority Filter</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">05</div><div class="stage-label">Threshold</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">06</div><div class="stage-label">GIS Analysis</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">07</div><div class="stage-label">Weather</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node done"><div class="stage-num">08</div><div class="stage-label">Risk Score</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node current"><div class="stage-num">09</div><div class="stage-label">Verification</div></div></div>
+      <div class="stage-arrow">›</div>
+      <div class="stage"><div class="stage-node pending"><div class="stage-num">10</div><div class="stage-label">Alert Decision</div></div></div>
+    </div>
+  </div>
+
+  <div class="priority-banner">
+    <div class="priority-badge" id="pdPriorityBadge"><i class="ti ti-activity" aria-hidden="true" style="margin-right:4px;font-size:10px"></i>Surveillance Status</div>
+    <div>
+      <div class="priority-disease" id="pdDisease">Awaiting Detections</div>
+      <div class="priority-crop" id="pdCrop">System monitoring database · 0 observations recorded</div>
+    </div>
+    <div class="priority-stats">
+      <div class="pstat"><div class="pstat-val" id="pdDetections">0</div><div class="pstat-label">Detections</div></div>
+      <div class="pstat"><div class="pstat-val" id="pdFarmers">0</div><div class="pstat-label">Farmers</div></div>
+      <div class="pstat"><div class="pstat-val" id="pdConfidence">0.0%</div><div class="pstat-label">Avg confidence</div></div>
+    </div>
+    <div class="risk-badge-high" id="pdRiskBadge" style="background:#0f6e56"><i class="ti ti-shield-check" aria-hidden="true" style="margin-right:3px;font-size:11px"></i>Monitoring</div>
+  </div>
+
+  <div class="panels">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Crop / Disease</span><span style="font-size:10px;color:var(--text-muted)" id="caseId">No active case</span></div>
+      <div class="plant-img">
+        <svg class="plant-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="40" cy="55" rx="28" ry="18" fill="#2d6a4f" opacity=".9"/>
+          <ellipse cx="25" cy="45" rx="20" ry="13" fill="#1b4332" opacity=".8"/>
+          <ellipse cx="55" cy="42" rx="18" ry="12" fill="#40916c" opacity=".85"/>
+          <ellipse cx="38" cy="38" rx="15" ry="10" fill="#52b788" opacity=".8"/>
+          <circle cx="32" cy="36" r="5" fill="#a8071a" opacity=".7"/>
+          <circle cx="48" cy="40" r="4" fill="#820014" opacity=".65"/>
+          <circle cx="40" cy="32" r="3" fill="#cf1322" opacity=".6"/>
+          <ellipse cx="60" cy="35" r="3" rx="4" fill="#7f4520" opacity=".5"/>
+          <rect x="38" y="55" width="3" height="18" fill="#52b788" rx="1.5"/>
+          <ellipse cx="39.5" cy="73" rx="8" ry="5" fill="#1b4332" opacity=".6"/>
+        </svg>
+        <div style="position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:4px;font-size:10px;color:#fff;display:flex;align-items:center;gap:5px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;flex-shrink:0" id="plantStatusDot"></span>
+          <span id="plantStatusText">Database Live</span>
+        </div>
+      </div>
+      <div class="plant-meta">
+        <div class="meta-row"><span class="meta-label">Crop</span><span class="meta-val" id="caseCrop">—</span></div>
+        <div class="meta-row"><span class="meta-label">Disease</span><span class="meta-val" id="caseDisease" style="color:#a32d2d">—</span></div>
+        <div class="meta-row"><span class="meta-label">Pathogen</span><span class="meta-val" id="casePathogen" style="font-size:10px;color:var(--text-secondary);font-style:italic">—</span></div>
+        <div class="conf-bar-wrap">
+          <div class="conf-label" id="caseConfLabel">AI detection confidence — 0.0%</div>
+          <div class="conf-bar"><div class="conf-fill" id="caseConfFill" style="width:0%"></div></div>
+        </div>
+        <div style="height:4px"></div>
+        <div class="meta-row"><span class="meta-label" style="font-size:10px">First detected</span><span class="meta-val" style="font-size:10px" id="caseFirst">—</span></div>
+        <div class="meta-row"><span class="meta-label" style="font-size:10px">Latest</span><span class="meta-val" style="font-size:10px" id="caseLatest">—</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column">
+      <div class="card-header">
+        <span class="card-title"><i class="ti ti-map-pin" style="margin-right:4px;color:#1d9e75"></i>GIS Geospatial Analysis</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:9px;background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:4px;font-weight:600">Kerala Central Zone</span>
+          <span style="font-size:10px;color:var(--text-muted)" id="gisLiveBadge">Live Sync</span>
+        </div>
+      </div>
+      <div class="map-area" style="flex:1" id="gisMapArea">
+        <!-- Base Map Image (sample_map.png) -->
+        <img id="gisMapImg" class="map-bg" src="../gis/input/sample_map.png"
+             alt="GIS Base Map"
+             onerror="this.src='../gis/output/analyzed_map.png';">
+
+        <!-- Top Layer HUD Controls -->
+        <div class="gis-hud-top">
+          <button class="gis-toggle-btn active" id="btnLayerPlaces" onclick="toggleGisLayer('places')">
+            <i class="ti ti-map-pin" style="font-size:10px"></i>Places
+          </button>
+          <button class="gis-toggle-btn active" id="btnLayerDistances" onclick="toggleGisLayer('distances')">
+            <i class="ti ti-ruler-2" style="font-size:10px"></i>Distances
+          </button>
+          <button class="gis-toggle-btn active" id="btnLayerClusters" onclick="toggleGisLayer('clusters')">
+            <i class="ti ti-circle-dot" style="font-size:10px"></i>Risk Zones
+          </button>
+          <button class="gis-toggle-btn active" id="btnLayerGrid" onclick="toggleGisLayer('grid')">
+            <i class="ti ti-grid-dots" style="font-size:10px"></i>Grid
+          </button>
+        </div>
+
+        <!-- Compass Rose -->
+        <div class="gis-compass">
+          <i class="ti ti-compass" style="font-size:12px;color:#38bdf8"></i>
+          <span>N</span>
+        </div>
+
+        <!-- Coordinate Bounds HUD -->
+        <div class="gis-coords-badge" id="gisCoordsHud">
+          <span>9.20°N – 9.35°N · 76.40°E – 76.55°E</span>
+        </div>
+
+        <!-- Metric Scale Bar -->
+        <div class="gis-scale-badge">
+          <div class="gis-scale-line"></div>
+          <span>2 km</span>
+        </div>
+
+        <!-- Dynamic Interactive SVG Vector Overlay -->
+        <svg class="gis-svg-overlay" id="gisSvgOverlay" viewBox="0 0 1000 600" preserveAspectRatio="none">
+          <defs>
+            <radialGradient id="gradClusterHigh" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ef4444" stop-opacity="0.45"/>
+              <stop offset="60%" stop-color="#ef4444" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#ef4444" stop-opacity="0.0"/>
+            </radialGradient>
+            <radialGradient id="gradClusterBuffer" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25"/>
+              <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"/>
+            </radialGradient>
+            <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          <!-- Layer: Coordinate Grid -->
+          <g id="layerGrid">
+            <line x1="200" y1="0" x2="200" y2="600" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="600" y1="0" x2="600" y2="600" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="800" y1="0" x2="800" y2="600" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="0" y1="150" x2="1000" y2="150" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="0" y1="300" x2="1000" y2="300" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="0" y1="450" x2="1000" y2="450" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+          </g>
+
+          <!-- Dynamic Layer: Risk Buffer Zones (populated by JS) -->
+          <g id="layerClusters"></g>
+
+          <!-- Dynamic Layer: Pairwise Distance Measurement Lines (populated by JS) -->
+          <g id="layerDistances"></g>
+
+          <!-- Dynamic Layer: Place Markers and Labels (populated by JS) -->
+          <g id="layerPlaces"></g>
+        </svg>
+
+        <!-- Floating Tooltip -->
+        <div class="gis-tooltip" id="gisTooltip"></div>
+      </div>
+
+      <div class="map-legend" id="gisMapLegend">
+        <div class="legend-item"><div class="legend-dot" style="background:#a32d2d"></div>Detection Pin</div>
+        <div class="legend-item"><i class="ti ti-ruler" aria-hidden="true" style="font-size:12px;color:#0284c7"></i>Avg Pairwise: <strong id="gisAvgDist">—</strong></div>
+        <div class="legend-item"><i class="ti ti-arrows-maximize" aria-hidden="true" style="font-size:12px;color:#0284c7"></i>Max Spread: <strong id="gisMaxSpread">—</strong></div>
+      </div>
+      <div class="map-footer">
+        <span class="map-stat">Center: <span id="gisCenterStat">—</span></span>
+        <span class="map-stat">Status: <span id="gisRadiusStat">0 detections</span></span>
+        <span class="cluster-badge" id="gisClusterBadge"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:10px;margin-right:3px"></i>Monitoring</span>
+      </div>
+    </div>
+
+    <div class="card risk-panel">
+      <div class="card-header"><span class="card-title">Risk Analysis</span></div>
+      <div class="gauge-area">
+        <div class="gauge-label">Prototype spatial risk score</div>
+        <div class="risk-score-big" id="riskScoreBig">79 <span style="font-size:14px;color:var(--text-muted)">/100</span></div>
+        <svg width="100" height="48" viewBox="0 0 100 48" aria-hidden="true">
+          <path d="M10 45 A40 40 0 0 1 90 45" stroke="var(--border-strong)" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path id="riskGaugeFill" d="M10 45 A40 40 0 0 1 90 45" stroke="#e24b4a" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="125.7" stroke-dashoffset="26.4"/>
+        </svg>
+        <div class="risk-level-badge" id="riskLevelBadge">HIGH</div>
+      </div>
+      <div class="factors">
+        <div style="font-size:10px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Input factors</div>
+        <div class="factor-row"><span class="factor-name">AI Confidence</span><span class="factor-val" style="color:#a32d2d">92.4%</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:92.4%"></div></div>
+        <div class="factor-row"><span class="factor-name">Detection count</span><span class="factor-val">7</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:70%;background:#ef9f27"></div></div>
+        <div class="factor-row"><span class="factor-name">Affected farmers</span><span class="factor-val">5</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:50%;background:#ef9f27"></div></div>
+        <div class="factor-row"><span class="factor-name">Proximity</span><span class="factor-val">1.58 km</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:80%;background:#e24b4a"></div></div>
+        <div class="factor-row"><span class="factor-name">Humidity</span><span class="factor-val">88%</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:88%;background:#e24b4a"></div></div>
+        <div class="factor-row"><span class="factor-name">Temperature</span><span class="factor-val">28.5°C</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:60%;background:#ef9f27"></div></div>
+        <div class="factor-row"><span class="factor-name">Wind speed</span><span class="factor-val">7.4 km/h</span></div>
+        <div class="factor-bar"><div class="factor-fill" style="width:30%;background:#22c55e"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="card timeline-card">
+      <div class="card-header"><span class="card-title">Detection Timeline</span></div>
+      <div class="timeline-list">
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-time">13:42</div><div class="tl-farmer">Farmer 0001</div><div class="tl-detail">Late Blight detected</div><div class="tl-conf">94% confidence</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-time">14:01</div><div class="tl-farmer">Farmer 0002</div><div class="tl-detail">Late Blight detected</div><div class="tl-conf">91% confidence</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-time">14:32</div><div class="tl-farmer">Farmer 0004</div><div class="tl-detail">Late Blight detected</div><div class="tl-conf">93% confidence</div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot threshold"></div><div class="tl-line"></div></div>
+          <div class="tl-content"><div class="tl-time">14:58</div><div class="tl-milestone"><div class="tl-milestone-text"><i class="ti ti-alert-triangle" aria-hidden="true" style="font-size:10px;margin-right:3px"></i>Threshold exceeded — priority event generated</div></div></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-dot"></div></div>
+          <div class="tl-content"><div class="tl-time">15:08</div><div class="tl-farmer">Farmer 0007</div><div class="tl-detail">Late Blight detected</div><div class="tl-conf">92% confidence</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column">
+      <div class="card-header"><span class="card-title">Analysis Summary</span><span style="font-size:10px;color:var(--text-muted)">Processing pipeline</span></div>
+      <div class="analysis-steps">
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Disease detected by farmer app</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Priority disease verified</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Detection count calculated (7)</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Multiple detections confirmed</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Location coordinates extracted</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Weather data attached</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Spatial distance calculated (1.58 km)</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="step-text done">Prototype risk score calculated (79/100)</div></div>
+        <div class="step-connector"></div>
+        <div class="step-row"><div class="step-icon current"><i class="ti ti-user-check" aria-hidden="true"></i></div><div class="step-text current">Official verification required</div></div>
+      </div>
+      <div style="padding:8px 12px;border-top:0.5px solid var(--border)">
+        <div class="card" style="background:var(--surface-1);border:0.5px solid var(--border)">
+          <div class="card-header" style="padding:6px 10px;border-bottom:none"><span class="card-title">Environmental Conditions</span></div>
+          <div class="weather-row" style="padding:4px 10px 8px">
+            <div class="w-item"><i class="ti ti-temperature w-icon" aria-hidden="true"></i><div><div class="w-val" id="wTemp">28.5°C</div><div class="w-lbl">Temperature</div></div></div>
+            <div class="w-item"><i class="ti ti-droplet w-icon" aria-hidden="true"></i><div><div class="w-val" id="wHumidity">88%</div><div class="w-lbl">Humidity</div></div></div>
+            <div class="w-item"><i class="ti ti-wind w-icon" aria-hidden="true"></i><div><div class="w-val" id="wWind">7.4 km/h</div><div class="w-lbl">Wind</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card decision-panel">
+      <div class="card-header" style="background:#fff5f5;border-bottom-color:#f7c1c1"><span class="card-title" style="color:#791f1f">Official Verification Status</span></div>
+      <div class="decision-inner">
+        <div class="decision-label">Human verification — Stage 09/10</div>
+        <div class="decision-question" id="decisionQuestion">Does this event require an emergency farmer alert?</div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.4">AI detection and computational analysis are evidence only. The final decision rests with the authorised official.</div>
+        <div class="decision-buttons">
+          <button class="btn-alert" id="btnAlert" onclick="showAlertModal()">
+            <i class="ti ti-alert-triangle btn-alert-icon" aria-hidden="true"></i>
+            <div class="btn-alert-text">
+              <div class="btn-alert-main">Serious case — alert farmers</div>
+              <div class="btn-alert-sub">Trigger risk alert</div>
+            </div>
+          </button>
+          <button class="btn-dismiss" id="btnDismiss" onclick="showDismissModal()">
+            <i class="ti ti-circle-check btn-dismiss-icon" aria-hidden="true"></i>
+            <div class="btn-dismiss-text">
+              <div class="btn-dismiss-main">Not a major issue</div>
+              <div class="btn-dismiss-sub" style="font-size:10px">No alert required</div>
+            </div>
+          </button>
+        </div>
+        <div style="border-top:0.5px solid var(--border);padding-top:8px">
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.04em">Report summary</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--text-secondary)">Report ID</span><span id="rptId" style="color:var(--text-primary);font-weight:500">—</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--text-secondary)">Risk score</span><span id="rptRisk" style="color:#a32d2d;font-weight:600">—</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--text-secondary)">Timestamp</span><span id="rptTimestamp" style="color:var(--text-primary)">—</span></div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <button class="rbtn" style="flex:1;justify-content:center" onclick="loadLiveData()"><i class="ti ti-refresh" aria-hidden="true"></i>Refresh</button>
+            <button class="rbtn" style="flex:1;justify-content:center"><i class="ti ti-download" aria-hidden="true"></i>Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-title">Recent Detections</div>
+    <span style="font-size:10px;color:var(--text-muted)" id="recentDetectionsSubtitle">Live Database Feed</span>
+  </div>
+  <div class="table-section">
+    <div class="table-wrap">
+      <table class="det-table">
+        <colgroup><col style="width:85px"><col style="width:75px"><col style="width:65px"><col style="width:80px"><col style="width:65px"><col style="width:65px"><col style="width:65px"><col style="width:75px"><col style="width:60px"><col style="width:50px"></colgroup>
+        <thead><tr><th>Obs. ID</th><th>Farmer</th><th>Crop</th><th>Disease</th><th>Confidence</th><th>Latitude</th><th>Longitude</th><th>Timestamp</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="detectionsBody">
+          <tr><td colspan="10" style="text-align:center;padding:24px;color:var(--text-muted)"><i class="ti ti-loader" style="margin-right:6px"></i>Loading live database observations...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="log-bar">
+    <i class="ti ti-terminal" aria-hidden="true" style="font-size:12px;flex-shrink:0"></i>
+    <div class="log-entries" id="dashboardLogBar">Connecting to authoritative database...</div>
+    <div class="pending-badge" id="pendingBadge"><i class="ti ti-database" aria-hidden="true" style="font-size:10px;margin-right:3px"></i><span id="pendingBadgeText">Database Sync</span></div>
+  </div>
+
+</div>
+
+<div id="modalLayer" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:200;border-radius:12px">
+</div>
+</div>
+
+<script>
+function showAlertModal(){
+  var layer=document.getElementById('modalLayer');
+  layer.style.display='flex';
+  var disease = document.getElementById('pdDisease').textContent || 'Tomato Late Blight';
+  var farmers = document.getElementById('pdFarmers').textContent || '0';
+  var risk = document.getElementById('riskScoreBig').textContent || '0';
+  layer.innerHTML='<div class="modal"><div class="modal-title"><i class="ti ti-alert-triangle modal-icon" aria-hidden="true"></i>Confirm farmer alert</div><div class="modal-body">This action will forward the verified risk event to the farmer alert pipeline. Review the details before confirming.</div><div class="modal-fields"><div class="mf-row"><span class="mf-label">Disease</span><span class="mf-val">'+disease+'</span></div><div class="mf-row"><span class="mf-label">Affected farmers</span><span class="mf-val">'+farmers+'</span></div><div class="mf-row"><span class="mf-label">Risk score</span><span class="mf-val" style="color:#a32d2d">'+risk+'</span></div><div class="mf-row"><span class="mf-label">Priority</span><span class="mf-val">HIGH</span></div></div><div style="background:#fcebeb;border:0.5px solid #f7c1c1;border-radius:6px;padding:8px 10px;font-size:11px;color:#791f1f;line-height:1.4"><i class="ti ti-info-circle" aria-hidden="true" style="margin-right:4px"></i>For this prototype, no real notifications will be sent. This action records the official verification decision.</div><div class="modal-btns"><button class="mbtn-cancel" onclick="closeModal()">Cancel</button><button class="mbtn-confirm" onclick="showAlertSuccess()">Confirm alert</button></div></div>';
+}
+function showAlertSuccess(){
+  var layer=document.getElementById('modalLayer');
+  layer.innerHTML='<div class="modal success-modal"><div class="success-icon"><i class="ti ti-circle-check" aria-hidden="true"></i></div><div class="success-title">Risk alert triggered</div><div class="success-body">Farmer notification pipeline initiated. The verified risk event has been forwarded.</div><div class="integration-box"><div class="int-title"><i class="ti ti-phone-call" aria-hidden="true" style="margin-right:4px;font-size:12px"></i>Farmer alert / IVR pipeline</div><div class="int-sub">Status: Ready · Database sync: Active</div></div><div style="display:flex;gap:8px;margin-top:8px"><button class="mbtn-cancel" style="flex:1" onclick="closeModal()">Close</button><button class="mbtn-confirm" style="flex:1;background:#0f6e56" onclick="closeModal()">View alert log</button></div></div>';
+
+  var payload = {
+    action: 'ALERT',
+    event_id: LIVE_DATA && LIVE_DATA.latest_report && LIVE_DATA.latest_report.event ? LIVE_DATA.latest_report.event.event_id : 'MANUAL-ALERT',
+    disease: document.getElementById('pdDisease').textContent || 'Unknown',
+    risk_label: document.getElementById('rptRisk').textContent || 'HIGH',
+    officer: 'Agri. Officer',
+    timestamp: new Date().toISOString(),
+  };
+
+  fetch('../api/trigger_alert.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    console.log('[Alert] Backend triggered:', d);
+    var intBox = document.querySelector('.integration-box .int-sub');
+    if(intBox && d.calls_initiated != null){
+      intBox.textContent = 'Status: Active · '+d.calls_initiated+' farmer(s) notified · Call log: data/call_log.json';
+    }
+  })
+  .catch(function(e){ console.log('[Alert] Backend call failed (demo mode):', e.message); });
+}
+function showDismissModal(){
+  var layer=document.getElementById('modalLayer');
+  layer.style.display='flex';
+  layer.innerHTML='<div class="modal dismiss-modal"><div class="dismiss-icon"><i class="ti ti-circle-check" aria-hidden="true"></i></div><div class="modal-title" style="justify-content:center">Event marked as non-critical</div><div class="modal-body" style="text-align:center">The event remains stored in the observation database and continues to be monitored. No farmer alert will be issued at this time.</div><div class="modal-fields"><div class="mf-row"><span class="mf-label">Monitoring status</span><span class="mf-val" style="color:#0f6e56">Active — continued monitoring</span></div><div class="mf-row"><span class="mf-label">Decision logged by</span><span class="mf-val">Agri. Officer</span></div><div class="mf-row"><span class="mf-label">Timestamp</span><span class="mf-val">'+new Date().toLocaleTimeString('en-IN')+'</span></div></div><div class="modal-btns"><button class="mbtn-cancel" style="flex:1" onclick="closeModal()">Close</button><button class="mbtn-cancel" style="flex:1;color:#0f6e56;border-color:#1d9e75" onclick="closeModal()">Continue monitoring</button></div></div>';
+}
+function closeModal(){
+  var layer=document.getElementById('modalLayer');
+  layer.style.display='none';
+  layer.innerHTML='';
+}
+function updateClock(){
+  var now=new Date();
+  var d=now.getDate().toString().padStart(2,'0');
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var m=months[now.getMonth()];
+  var y=now.getFullYear();
+  var h=now.getHours().toString().padStart(2,'0');
+  var mi=now.getMinutes().toString().padStart(2,'0');
+  var s=now.getSeconds().toString().padStart(2,'0');
+  var el=document.getElementById('clockDisplay');
+  if(el)el.textContent=d+' '+m+' '+y+' — '+h+':'+mi+':'+s;
+}
+updateClock();
+setInterval(updateClock,1000);
+
+// --- GIS Interactive Overlay Functions ---
+var gisLayerStates = { places: true, distances: true, clusters: true, grid: true };
+
+function toggleGisLayer(name) {
+  gisLayerStates[name] = !gisLayerStates[name];
+  var layerEl = document.getElementById('layer' + name.charAt(0).toUpperCase() + name.slice(1));
+  var btnEl = document.getElementById('btnLayer' + name.charAt(0).toUpperCase() + name.slice(1));
+  if (layerEl) {
+    layerEl.style.display = gisLayerStates[name] ? 'inline' : 'none';
+  }
+  if (btnEl) {
+    if (gisLayerStates[name]) {
+      btnEl.classList.add('active');
+    } else {
+      btnEl.classList.remove('active');
+    }
+  }
+}
+
+function showPlaceTooltip(e, place, farmer, coords, conf, dist) {
+  var tt = document.getElementById('gisTooltip');
+  var mapArea = document.getElementById('gisMapArea');
+  if (!tt || !mapArea) return;
+  
+  var rect = mapArea.getBoundingClientRect();
+  var x = e.clientX - rect.left + 12;
+  var y = e.clientY - rect.top - 10;
+  
+  if (x + 160 > rect.width) x = e.clientX - rect.left - 170;
+  if (y + 110 > rect.height) y = e.clientY - rect.top - 100;
+  if (y < 10) y = 10;
+
+  tt.style.left = Math.max(10, x) + 'px';
+  tt.style.top = Math.max(10, y) + 'px';
+  tt.style.display = 'block';
+  tt.innerHTML = '<div style="font-weight:700;color:#38bdf8;margin-bottom:3px;display:flex;align-items:center;gap:4px">' +
+                 '<i class="ti ti-map-pin" style="font-size:12px"></i>' + place + '</div>' +
+                 '<div style="font-size:9.5px;color:#e2e8f0;margin-bottom:2px">👤 ' + farmer + '</div>' +
+                 '<div style="font-size:9px;color:#94a3b8">🌐 ' + coords + '</div>' +
+                 '<div style="font-size:9px;color:#4ade80;margin-top:2px">🎯 ' + conf + '</div>' +
+                 '<div style="font-size:9px;color:#f59e0b;font-weight:600;margin-top:2px">📏 ' + dist + '</div>';
+}
+
+function showDistanceTooltip(e, pair, dist) {
+  var tt = document.getElementById('gisTooltip');
+  var mapArea = document.getElementById('gisMapArea');
+  if (!tt || !mapArea) return;
+  
+  var rect = mapArea.getBoundingClientRect();
+  var x = e.clientX - rect.left + 12;
+  var y = e.clientY - rect.top - 10;
+
+  tt.style.left = Math.max(10, x) + 'px';
+  tt.style.top = Math.max(10, y) + 'px';
+  tt.style.display = 'block';
+  tt.innerHTML = '<div style="font-weight:700;color:#38bdf8;margin-bottom:3px">📏 Distance Vector</div>' +
+                 '<div style="font-size:9.5px;color:#e2e8f0">' + pair + '</div>' +
+                 '<div style="font-size:11px;font-weight:700;color:#38bdf8;margin-top:3px">' + dist + '</div>';
+}
+
+function hideGisTooltip() {
+  var tt = document.getElementById('gisTooltip');
+  if (tt) tt.style.display = 'none';
+}
+
+// Haversine distance in km
+function haversineDistKm(lat1, lon1, lat2, lon2) {
+  var R = 6371.0;
+  var dLat = (lat2 - lat1) * Math.PI / 180;
+  var dLon = (lon2 - lon1) * Math.PI / 180;
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLon/2) * Math.sin(dLon/2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+// Delete observation handler
+function deleteObservation(obsId) {
+  if (!confirm('Are you sure you want to delete observation ' + obsId + ' from the database?')) {
+    return;
+  }
+  fetch('../api/delete_observation.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ observation_id: obsId }),
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d && d.success) {
+      console.log('[Dashboard] Observation deleted:', obsId);
+      loadLiveData();
+    } else {
+      alert('Delete failed: ' + (d.error || 'Unknown error'));
+    }
+  })
+  .catch(function(err){
+    console.error('Delete request error:', err);
+    alert('Error connecting to delete API: ' + err.message);
+  });
+}
+window.deleteObservation = deleteObservation;
+</script>
+
+<!-- ============================================================
+  SINGLE SOURCE OF TRUTH — Live Observation Data Synchronization
+  Polls /api/get_observations.php directly and updates all statistics,
+  tables, timeline, and GIS vector map pins dynamically.
+  ============================================================ -->
+<script>
+function setText(id,val){var el=document.getElementById(id);if(el&&val!=null)el.textContent=val;}
+function setHtml(id,val){var el=document.getElementById(id);if(el&&val!=null)el.innerHTML=val;}
+
+function riskColor(status){
+  var s=(status||'').toUpperCase();
+  if(s==='EXTREME'||s==='HIGH') return '#a32d2d';
+  if(s==='MODERATE') return '#854f0b';
+  return '#0f6e56';
+}
+
+function formatTs(ts){
+  if(!ts)return '—';
+  try{
+    var d=new Date(ts);
+    return d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:false});
+  }catch(e){return ts;}
+}
+
+var LIVE_DATA = null;
+
+function renderDynamicGIS(observations) {
+  var layerPlaces = document.getElementById('layerPlaces');
+  var layerDistances = document.getElementById('layerDistances');
+  var layerClusters = document.getElementById('layerClusters');
+  if (!layerPlaces || !layerDistances || !layerClusters) return;
+
+  layerPlaces.innerHTML = '';
+  layerDistances.innerHTML = '';
+  layerClusters.innerHTML = '';
+
+  if (!observations || observations.length === 0) {
+    setText('gisAvgDist', '—');
+    setText('gisMaxSpread', '—');
+    setText('gisCenterStat', '—');
+    setText('gisRadiusStat', '0 active detections');
+    var badge = document.getElementById('gisClusterBadge');
+    if (badge) {
+      badge.innerHTML = '<i class="ti ti-shield-check" style="font-size:10px;margin-right:3px"></i>Monitoring';
+      badge.style.background = 'var(--bg-success)';
+      badge.style.color = '#0f6e56';
+    }
+    return;
+  }
+
+  var defaultPlaces = [
+    { name: 'Chengannur',   lat: 9.2712, lon: 76.4721 },
+    { name: 'Thiruvalla',   lat: 9.2645, lon: 76.4600 },
+    { name: 'Aranmula',     lat: 9.2801, lon: 76.4815 },
+    { name: 'Pandalam',     lat: 9.2723, lon: 76.4710 },
+    { name: 'Kozhencherry', lat: 9.2660, lon: 76.4640 },
+    { name: 'Mavelikkara',  lat: 9.3150, lon: 76.5160 },
+  ];
+
+  // Map geographic bounds (extent: lon 76.40-76.55, lat 9.20-9.35)
+  // SVG ViewBox: 0 0 1000 600
+  var minLon = 76.40, maxLon = 76.55;
+  var minLat = 9.20,  maxLat = 9.35;
+
+  var points = [];
+  observations.forEach(function(obs, idx) {
+    var defLoc = defaultPlaces[idx % defaultPlaces.length];
+    var lat = obs.latitude != null ? parseFloat(obs.latitude) : defLoc.lat;
+    var lon = obs.longitude != null ? parseFloat(obs.longitude) : defLoc.lon;
+    var placeName = obs.place || defLoc.name;
+
+    // SVG projection
+    var x = Math.max(30, Math.min(970, ((lon - minLon) / (maxLon - minLon)) * 1000));
+    var y = Math.max(30, Math.min(570, ((maxLat - lat) / (maxLat - minLat)) * 600));
+
+    points.push({
+      obs: obs,
+      lat: lat,
+      lon: lon,
+      x: x,
+      y: y,
+      place: placeName,
+      farmerId: obs.farmer_id || ('F' + (idx+1)),
+      confidence: obs.confidence != null ? Math.round(obs.confidence * 100) + '%' : '90%',
+    });
+  });
+
+  // 1. Calculate centroid and pairwise distances
+  var sumLat = 0, sumLon = 0, sumX = 0, sumY = 0;
+  points.forEach(function(p){
+    sumLat += p.lat; sumLon += p.lon; sumX += p.x; sumY += p.y;
+  });
+  var cLat = sumLat / points.length;
+  var cLon = sumLon / points.length;
+  var cX = sumX / points.length;
+  var cY = sumY / points.length;
+
+  var pairs = [];
+  var maxDistKm = 0;
+  var totalDistKm = 0;
+
+  for (var i = 0; i < points.length; i++) {
+    for (var j = i + 1; j < points.length; j++) {
+      var dKm = haversineDistKm(points[i].lat, points[i].lon, points[j].lat, points[j].lon);
+      pairs.push({ p1: points[i], p2: points[j], distKm: dKm });
+      totalDistKm += dKm;
+      if (dKm > maxDistKm) maxDistKm = dKm;
+    }
+  }
+
+  var avgDistKm = pairs.length > 0 ? (totalDistKm / pairs.length) : 0;
+
+  setText('gisAvgDist', pairs.length > 0 ? avgDistKm.toFixed(2) + ' km' : '0.00 km');
+  setText('gisMaxSpread', maxDistKm > 0 ? maxDistKm.toFixed(2) + ' km' : '0.00 km');
+  setText('gisCenterStat', cLat.toFixed(4) + '°N, ' + cLon.toFixed(4) + '°E');
+  setText('gisRadiusStat', points.length + ' detection pin(s)');
+
+  var badge = document.getElementById('gisClusterBadge');
+  if (badge) {
+    if (points.length >= 2) {
+      badge.innerHTML = '<i class="ti ti-alert-circle" style="font-size:10px;margin-right:3px"></i>Active Cluster (' + points.length + ')';
+      badge.style.background = 'var(--bg-warning)';
+      badge.style.color = '#854f0b';
+    } else {
+      badge.innerHTML = '<i class="ti ti-shield-check" style="font-size:10px;margin-right:3px"></i>Single Detection';
+      badge.style.background = 'var(--bg-success)';
+      badge.style.color = '#0f6e56';
+    }
+  }
+
+  // 2. Draw Cluster Buffer Rings around centroid
+  if (points.length >= 2) {
+    var r1 = Math.max(50, Math.min(120, (avgDistKm / 3.0) * 80));
+    var r2 = r1 * 2.2;
+
+    var clusterSvg = '<circle cx="'+cX+'" cy="'+cY+'" r="'+r2+'" fill="url(#gradClusterBuffer)" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.85"/>' +
+                     '<circle cx="'+cX+'" cy="'+cY+'" r="'+r1+'" fill="url(#gradClusterHigh)" stroke="#ef4444" stroke-width="2.0" opacity="0.9"/>' +
+                     '<circle cx="'+cX+'" cy="'+cY+'" r="12" fill="none" stroke="#ef4444" stroke-width="2" class="gis-pulse-ring"/>';
+    layerClusters.innerHTML = clusterSvg;
+  }
+
+  // 3. Draw Distance Measurement Lines & Midpoint Badges
+  var distSvg = '';
+  pairs.forEach(function(pair, pIdx) {
+    var p1 = pair.p1, p2 = pair.p2;
+    var midX = (p1.x + p2.x) / 2;
+    var midY = (p1.y + p2.y) / 2;
+    var distLabel = pair.distKm.toFixed(2) + ' km';
+    var pairLabel = p1.place + ' ↔ ' + p2.place;
+
+    distSvg += '<line class="gis-dist-line" x1="'+p1.x+'" y1="'+p1.y+'" x2="'+p2.x+'" y2="'+p2.y+'" ' +
+               'onmousemove="showDistanceTooltip(event, \''+pairLabel+'\', \''+distLabel+'\')" onmouseleave="hideGisTooltip()"/>';
+
+    // Show midpoint badge for the primary connections
+    if (pIdx < 3 || pairs.length <= 4) {
+      distSvg += '<g transform="translate('+midX+','+midY+')">' +
+                 '<rect x="-30" y="-9" width="60" height="18" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" opacity="0.95"/>' +
+                 '<text x="0" y="3.5" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" font-family="Inter,sans-serif">'+distLabel+'</text>' +
+                 '</g>';
+    }
+  });
+  layerDistances.innerHTML = distSvg;
+
+  // 4. Draw Place Pins
+  var placesSvg = '';
+  points.forEach(function(p, i) {
+    var isPrimary = (i === 0);
+    var pinColor = isPrimary ? '#a32d2d' : '#e24b4a';
+    var pinRadius = isPrimary ? 8 : 6.5;
+    var distToCenter = haversineDistKm(p.lat, p.lon, cLat, cLon).toFixed(2) + ' km to Center';
+    var labelTag = (isPrimary ? '⚠️ ' : '📍 ') + p.place + ' (F-' + p.farmerId.slice(-2) + ')';
+    var textOffset = (i % 2 === 0) ? -28 : 22;
+
+    placesSvg += '<g class="gis-place-node" transform="translate('+p.x+','+p.y+')" ' +
+                 'onmousemove="showPlaceTooltip(event, \''+p.place+'\', \'Farmer '+p.farmerId+'\', \''+p.lat.toFixed(4)+'°N, '+p.lon.toFixed(4)+'°E\', \''+p.confidence+' Confidence\', \''+distToCenter+'\')" ' +
+                 'onmouseleave="hideGisTooltip()">' +
+                 '<circle cx="0" cy="0" r="'+pinRadius+'" fill="'+pinColor+'" stroke="#ffffff" stroke-width="2"/>' +
+                 (isPrimary ? '<circle cx="0" cy="0" r="3.5" fill="#ffffff"/>' : '') +
+                 '<rect x="-50" y="'+textOffset+'" width="100" height="17" rx="3.5" fill="'+(isPrimary?'#a32d2d':'#ffffff')+'" stroke="'+(isPrimary?'#ffffff':'#1e293b')+'" stroke-width="1" opacity="0.93"/>' +
+                 '<text x="0" y="'+(textOffset + 12)+'" fill="'+(isPrimary?'#ffffff':'#0f172a')+'" font-size="9.5" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif">'+labelTag+'</text>' +
+                 '</g>';
+  });
+  layerPlaces.innerHTML = placesSvg;
+}
+
+function renderDashboard(data) {
+  LIVE_DATA = data;
+  var observations = data.observations || [];
+  var total = observations.length;
+  var uniqueFarmers = data.unique_farmers != null ? data.unique_farmers : new Set(observations.map(function(o){ return o.farmer_id; })).size;
+  var avgConf = data.average_confidence != null ? data.average_confidence : (total > 0 ? (observations.reduce(function(a,b){ return a + (parseFloat(b.confidence)||0); }, 0) / total) : 0);
+  var report = data.latest_report;
+
+  // --- 1. Priority Banner & Status ---
+  var topDisease = 'Awaiting Detections';
+  var topCrop = 'System ready · Awaiting farmer uploads';
+  if (total > 0) {
+    var dCounts = data.disease_counts || {};
+    var bestD = Object.keys(dCounts).sort(function(a,b){ return dCounts[b] - dCounts[a]; })[0];
+    topDisease = bestD || observations[observations.length - 1].disease || 'Crop Disease';
+    topCrop = (observations[0].crop || 'Crop') + ' · ' + total + ' observation(s) in database';
+  }
+
+  setText('pdDisease', topDisease);
+  setText('pdCrop', topCrop);
+  setText('pdDetections', total);
+  setText('pdFarmers', uniqueFarmers);
+  setText('pdConfidence', total > 0 ? Math.round(avgConf * 100) + '%' : '—');
+
+  var riskBadge = document.getElementById('pdRiskBadge');
+  if (riskBadge) {
+    if (total >= 2) {
+      riskBadge.innerHTML = '<i class="ti ti-flame" aria-hidden="true" style="margin-right:3px;font-size:11px"></i>High Priority';
+      riskBadge.style.background = '#a32d2d';
+    } else if (total === 1) {
+      riskBadge.innerHTML = '<i class="ti ti-activity" aria-hidden="true" style="margin-right:3px;font-size:11px"></i>Logged';
+      riskBadge.style.background = '#854f0b';
+    } else {
+      riskBadge.innerHTML = '<i class="ti ti-shield-check" aria-hidden="true" style="margin-right:3px;font-size:11px"></i>Monitoring';
+      riskBadge.style.background = '#0f6e56';
+    }
+  }
+
+  // --- 2. Crop / Disease Panel ---
+  if (total > 0) {
+    var latestObs = observations[observations.length - 1];
+    setText('caseId', 'Case #' + (latestObs.observation_id || 'DET-001'));
+    setText('caseCrop', latestObs.crop || 'Tomato');
+    setText('caseDisease', latestObs.disease || 'Detected Issue');
+    setText('casePathogen', latestObs.disease === 'Late Blight' ? 'Phytophthora infestans' : (latestObs.disease === 'Early Blight' ? 'Alternaria solani' : 'Identified by AI model'));
+    var lConf = Math.round((latestObs.confidence || avgConf) * 100);
+    setText('caseConfLabel', 'AI detection confidence — ' + lConf + '%');
+    var cFill = document.getElementById('caseConfFill');
+    if (cFill) cFill.style.width = lConf + '%';
+    setText('caseFirst', formatTs(observations[0].timestamp));
+    setText('caseLatest', formatTs(latestObs.timestamp));
+    var pDot = document.getElementById('plantStatusDot');
+    if (pDot) pDot.style.background = '#22c55e';
+    setText('plantStatusText', 'Live Sync Active');
+  } else {
+    setText('caseId', 'No active case');
+    setText('caseCrop', '—');
+    setText('caseDisease', '—');
+    setText('casePathogen', '—');
+    setText('caseConfLabel', 'AI detection confidence — 0.0%');
+    var cFill2 = document.getElementById('caseConfFill');
+    if (cFill2) cFill2.style.width = '0%';
+    setText('caseFirst', '—');
+    setText('caseLatest', '—');
+  }
+
+  // --- 3. Dynamic GIS Geospatial Map ---
+  renderDynamicGIS(observations);
+
+  // --- 4. Risk Analysis Panel ---
+  var riskScore = 0;
+  var riskStatus = 'LOW';
+  if (report && report.risk && report.risk.prototype_risk_percentage != null) {
+    riskScore = Math.round(report.risk.prototype_risk_percentage);
+    riskStatus = report.risk.status || 'HIGH';
+  } else if (total > 0) {
+    riskScore = Math.min(95, Math.round(avgConf * 50 + Math.min(total * 12, 40)));
+    riskStatus = riskScore >= 75 ? 'HIGH' : (riskScore >= 45 ? 'MODERATE' : 'LOW');
+  }
+
+  var rScoreEl = document.getElementById('riskScoreBig');
+  if (rScoreEl) rScoreEl.innerHTML = riskScore + ' <span style="font-size:14px;color:var(--text-muted)">/100</span>';
+  var gaugeEl = document.getElementById('riskGaugeFill');
+  if (gaugeEl) {
+    var offset = 125.7 * (1 - riskScore / 100);
+    gaugeEl.setAttribute('stroke-dashoffset', offset.toFixed(1));
+    gaugeEl.setAttribute('stroke', riskColor(riskStatus));
+  }
+  setText('riskLevelBadge', total > 0 ? riskStatus : 'STANDBY');
+
+  // --- 5. Detection Timeline ---
+  var tlContainer = document.getElementById('timelineList');
+  if (tlContainer) {
+    if (total === 0) {
+      tlContainer.innerHTML = '<div style="padding:20px;text-align:center;font-size:11px;color:var(--text-muted)"><i class="ti ti-clock-off" style="font-size:16px;display:block;margin-bottom:4px"></i>No timeline events recorded yet.</div>';
+    } else {
+      var tlHtml = '';
+      observations.slice().reverse().forEach(function(obs, idx) {
+        var isFirst = (idx === observations.length - 1);
+        var timeStr = formatTs(obs.timestamp);
+        var confVal = Math.round((parseFloat(obs.confidence)||0) * 100) + '%';
+        var fLabel = obs.farmer_name || ('Farmer ' + (obs.farmer_id || '?'));
+
+        tlHtml += '<div class="tl-item">' +
+                  '<div class="tl-left"><div class="tl-dot '+(idx===0?'threshold':'')+'"></div>'+(idx < observations.length - 1 ? '<div class="tl-line"></div>' : '')+'</div>' +
+                  '<div class="tl-content">' +
+                  '<div class="tl-time">' + timeStr + '</div>' +
+                  '<div class="tl-farmer">' + fLabel + ' (' + (obs.observation_id||'OBS') + ')</div>' +
+                  '<div class="tl-detail">' + (obs.disease || 'Detection') + ' · ' + (obs.crop || 'Crop') + '</div>' +
+                  '<div class="tl-conf">' + confVal + ' AI confidence</div>' +
+                  '</div></div>';
+      });
+      tlContainer.innerHTML = tlHtml;
+    }
+  }
+
+  // --- 6. Recent Detections Table ---
+  var tbody = document.getElementById('detectionsBody');
+  var subTitle = document.getElementById('recentDetectionsSubtitle');
+  if (subTitle) subTitle.textContent = 'Showing ' + total + ' observation(s) from database';
+
+  if (tbody) {
+    if (total === 0) {
+      tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:26px;color:var(--text-muted)">' +
+                        '<i class="ti ti-database-off" style="font-size:20px;vertical-align:middle;margin-right:6px"></i>' +
+                        'Database is empty. Submit photo in Farmer App to create first detection.</td></tr>';
+    } else {
+      tbody.innerHTML = '';
+      observations.slice().reverse().forEach(function(obs) {
+        var confVal = obs.confidence != null ? Math.round(obs.confidence * 100) + '%' : '—';
+        var ts = formatTs(obs.timestamp);
+        var lat = obs.latitude != null ? parseFloat(obs.latitude).toFixed(4) : '—';
+        var lon = obs.longitude != null ? parseFloat(obs.longitude).toFixed(4) : '—';
+        var obsId = obs.observation_id || '—';
+        var fName = obs.farmer_name || obs.farmer_id || '—';
+
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><strong>' + obsId + '</strong></td>' +
+                       '<td>' + fName + '</td>' +
+                       '<td>' + (obs.crop || 'Tomato') + '</td>' +
+                       '<td>' + (obs.disease || '—') + '</td>' +
+                       '<td>' + confVal + '</td>' +
+                       '<td>' + lat + '</td>' +
+                       '<td>' + lon + '</td>' +
+                       '<td>' + ts + '</td>' +
+                       '<td><span class="' + (total >= 2 ? 'status-priority' : 'status-normal') + '">' + (total >= 2 ? 'Priority' : 'Logged') + '</span></td>' +
+                       '<td><button class="btn-del-obs" onclick="deleteObservation(\'' + obsId + '\')" title="Delete from database"><i class="ti ti-trash"></i></button></td>';
+        tbody.appendChild(tr);
+      });
+    }
+  }
+
+  // --- 7. Decision & Report Summary ---
+  if (report) {
+    setText('rptId', report.report_id || 'RPT-SYNC');
+    setText('rptRisk', (report.risk && report.risk.label) || (riskScore + '/100 ' + riskStatus));
+    setText('rptTimestamp', report.generated_at ? formatTs(report.generated_at) : '—');
+  } else if (total > 0) {
+    setText('rptId', 'RPT-LIVE-' + total);
+    setText('rptRisk', riskScore + '/100 ' + riskStatus);
+    setText('rptTimestamp', formatTs(new Date().toISOString()));
+  } else {
+    setText('rptId', '—');
+    setText('rptRisk', '0/100 Normal');
+    setText('rptTimestamp', '—');
+  }
+
+  // --- 8. Log Bar ---
+  var logBar = document.getElementById('dashboardLogBar');
+  if (logBar) {
+    logBar.textContent = '[' + new Date().toLocaleTimeString('en-IN') + '] Database synchronized · ' + total + ' observation(s) active · ' + uniqueFarmers + ' farmer(s)';
+  }
+}
+
+function loadLiveData() {
+  fetch('../api/get_observations.php')
+    .then(function(resp) {
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      return resp.json();
+    })
+    .then(function(data) {
+      if (data && data.success) {
+        renderDashboard(data);
+      }
+    })
+    .catch(function() {
+      // Fallback: try direct observations.json read
+      fetch('../data/observations.json')
+        .then(function(r){ return r.json(); })
+        .then(function(dbData){
+          var obs = dbData.observations || (Array.isArray(dbData) ? dbData : []);
+          renderDashboard({ success: true, observations: obs });
+        })
+        .catch(function(err){
+          console.log('[Dashboard] Note: Database empty or awaiting observations:', err.message);
+          renderDashboard({ success: true, observations: [] });
+        });
+    });
+}
+
+// Initial load, then poll every 3 seconds for real-time reactivity
+loadLiveData();
+setInterval(loadLiveData, 3000);
+</script>
+
+<style>
+@media print{
+  @page{ size:landscape; margin:10mm; }
+  html,body{ background:#070c17 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:0; }
+  .app-shell{ max-width:none; }
+  .app{ box-shadow:none; min-height:0; }
+}
+</style>
+
+</div><!-- /.app-shell -->
+</body>
+</html>

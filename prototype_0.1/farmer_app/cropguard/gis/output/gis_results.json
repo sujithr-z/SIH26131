@@ -1,0 +1,35 @@
+{
+    "event_id": "EVENT-0001",
+    "disease": "Early Blight",
+    "generated_at": "2026-08-26T09:01:12Z",
+    "analysis": {
+        "total_detections": 2,
+        "unique_farmers": 2,
+        "average_confidence": 0.942,
+        "average_humidity_percent": 87.0
+    },
+    "spatial_analysis": {
+        "average_distance_km": 1.523,
+        "pairwise_distances": [
+            {
+                "i": 0,
+                "j": 1,
+                "farmer_a": "002",
+                "farmer_b": "003",
+                "distance_km": 1.523
+            }
+        ],
+        "distance_score": 0.7374,
+        "humidity_score": 0.87,
+        "confidence_score": 0.942,
+        "weights": {
+            "distance": 0.5,
+            "humidity": 0.3,
+            "confidence": 0.2
+        },
+        "prototype_risk_score": 0.8181,
+        "prototype_risk_percentage": 81.81
+    },
+    "status": "HIGH",
+    "map_output": "D:\\SIH26131\\prototype_0.1\\farmer_app\\cropguard\\gis\\output\\analyzed_map.png"
+}

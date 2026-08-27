@@ -1,0 +1,38 @@
+[
+    {
+        "call_id": "CALL-1787734937-001",
+        "event_id": "EVENT-0001",
+        "farmer_id": "001",
+        "farmer_name": "sujith",
+        "phone": "8870210301",
+        "disease": "Early Blight",
+        "risk_label": "82/100 HIGH",
+        "status": "COMPLETED",
+        "timestamp": "2026-08-26 09:02:19",
+        "duration_sec": 24
+    },
+    {
+        "call_id": "CALL-1787734937-002",
+        "event_id": "EVENT-0001",
+        "farmer_id": "002",
+        "farmer_name": "sujith raj D",
+        "phone": "8870210307",
+        "disease": "Early Blight",
+        "risk_label": "82/100 HIGH",
+        "status": "COMPLETED",
+        "timestamp": "2026-08-26 09:02:23",
+        "duration_sec": 27
+    },
+    {
+        "call_id": "CALL-1787734937-003",
+        "event_id": "EVENT-0001",
+        "farmer_id": "003",
+        "farmer_name": "har harish",
+        "phone": "999800876",
+        "disease": "Early Blight",
+        "risk_label": "82/100 HIGH",
+        "status": "CALLING",
+        "timestamp": "2026-08-26 09:02:25",
+        "duration_sec": 0
+    }
+]

@@ -1,0 +1,49 @@
+{
+    "events": [
+        {
+            "event_id": "EVENT-0001",
+            "disease": "Early Blight",
+            "detection_count": 2,
+            "unique_farmer_count": 2,
+            "status": "TRIGGERED",
+            "generated_at": "2026-08-26T09:01:10Z",
+            "detections": [
+                {
+                    "observation_id": "OBS-000001",
+                    "farmer_id": "002",
+                    "crop": "Tomato",
+                    "image_path": "uploads/farmer002_1787734806.jpg",
+                    "confidence": 0.942,
+                    "timestamp": "2026-08-26T09:00:06+00:00",
+                    "latitude": 9.2645,
+                    "longitude": 76.46,
+                    "weather": {
+                        "temperature_c": 27.9,
+                        "humidity_percent": 84,
+                        "wind_speed_kmh": 10.8
+                    }
+                },
+                {
+                    "observation_id": "OBS-000002",
+                    "farmer_id": "003",
+                    "crop": "Tomato",
+                    "image_path": "uploads/farmer003_1787734869.jpg",
+                    "confidence": 0.942,
+                    "timestamp": "2026-08-26T09:01:09+00:00",
+                    "latitude": 9.2712,
+                    "longitude": 76.4721,
+                    "weather": {
+                        "temperature_c": 27.7,
+                        "humidity_percent": 90,
+                        "wind_speed_kmh": 6.2
+                    }
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "total_events": 1,
+        "last_updated": "2026-08-26T09:01:10Z",
+        "description": "Derived surveillance event database storing triggered priority disease events for the geospatial computation stage."
+    }
+}

@@ -1,0 +1,106 @@
+
+[2026-08-26T08:53:02Z] GIS pipeline triggered by surveillance engine
+======================================================================
+ AGRICULTURAL DISEASE SURVEILLANCE — GIS ANALYSIS
+======================================================================
+
+Loading configuration...
+  [OK] Configuration loaded
+
+Loading priority events...
+  [OK] Found 1 event(s)
+
+Selecting latest triggered event...
+EVENT BEING ANALYZED:
+  Event ID         : EVENT-0001
+  Disease          : Late Blight
+  Detection count  : 2
+  Unique farmers   : 2
+  Status           : TRIGGERED
+  Generated at     : 2026-08-26T08:53:02Z
+
+Running GIS engine...
+  [OK] GIS analysis complete
+
+----------------------------------------------------------------------
+GIS ANALYSIS RESULTS:
+----------------------------------------------------------------------
+
+Detection Summary:
+  Total detections    : 2
+  Average confidence  : 95.0%
+  Average humidity    : 0.0%
+
+Spatial Analysis:
+  Distance between    : 0.00 km
+  Distance score      : 0.737
+  Humidity score      : 0.915
+  Prototype risk      : 0.833
+
+Risk Classification:
+  Status              : HIGH
+
+----------------------------------------------------------------------
+OUTPUT FILES:
+----------------------------------------------------------------------
+  Analyzed map        : D:\SIH26131\prototype_0.1\farmer_app\cropguard\gis\output\analyzed_map.png
+  GIS results         : D:\SIH26131\prototype_0.1\farmer_app\cropguard\gis\output\gis_results.json
+
+======================================================================
+GIS analysis complete.
+======================================================================
+Running report builder...
+  Report builder complete -> reports/latest_report.json
+
+[2026-08-26T09:01:10Z] GIS pipeline triggered by surveillance engine
+======================================================================
+ AGRICULTURAL DISEASE SURVEILLANCE — GIS ANALYSIS
+======================================================================
+
+Loading configuration...
+  [OK] Configuration loaded
+
+Loading priority events...
+  [OK] Found 1 event(s)
+
+Selecting latest triggered event...
+EVENT BEING ANALYZED:
+  Event ID         : EVENT-0001
+  Disease          : Early Blight
+  Detection count  : 2
+  Unique farmers   : 2
+  Status           : TRIGGERED
+  Generated at     : 2026-08-26T09:01:10Z
+
+Running GIS engine...
+  [OK] GIS analysis complete
+
+----------------------------------------------------------------------
+GIS ANALYSIS RESULTS:
+----------------------------------------------------------------------
+
+Detection Summary:
+  Total detections    : 2
+  Average confidence  : 94.2%
+  Average humidity    : 0.0%
+
+Spatial Analysis:
+  Distance between    : 0.00 km
+  Distance score      : 0.737
+  Humidity score      : 0.870
+  Prototype risk      : 0.818
+
+Risk Classification:
+  Status              : HIGH
+
+----------------------------------------------------------------------
+OUTPUT FILES:
+----------------------------------------------------------------------
+  Analyzed map        : D:\SIH26131\prototype_0.1\farmer_app\cropguard\gis\output\analyzed_map.png
+  GIS results         : D:\SIH26131\prototype_0.1\farmer_app\cropguard\gis\output\gis_results.json
+
+======================================================================
+GIS analysis complete.
+======================================================================
+Running report builder...
+  Report builder complete -> reports/latest_report.json
