@@ -1,0 +1,46 @@
+[
+    {
+        "notification_id": "NOTIF-1787826930-377",
+        "farmer_id": "001",
+        "farmer_name": "sujith",
+        "phone": "8870210301",
+        "disease": "Apple Scab",
+        "channel": "SMS & In-App",
+        "message": "CropGuard Advisory: Apple Scab has been CONFIRMED by Dr. Ananya Sharma (Lead Agronomist). Recommended immediate action: Apply protective bio-fungicide and isolate affected rows.",
+        "status": "SENT",
+        "timestamp": "2026-08-27T10:35:30+00:00"
+    },
+    {
+        "notification_id": "NOTIF-1787826998-810",
+        "farmer_id": "001",
+        "farmer_name": "sujith",
+        "phone": "8870210301",
+        "disease": "Apple Scab",
+        "channel": "SMS & In-App",
+        "message": "CropGuard Advisory: Apple Scab has been CONFIRMED by Dr. Ananya Sharma (Lead Agronomist). Recommended immediate action: Apply protective bio-fungicide and isolate affected rows.",
+        "status": "SENT",
+        "timestamp": "2026-08-27T10:36:38+00:00"
+    },
+    {
+        "notification_id": "NOTIF-1787827912-846",
+        "farmer_id": "001",
+        "farmer_name": "sujith",
+        "phone": "8870210301",
+        "disease": "Apple Scab",
+        "channel": "SMS & In-App",
+        "message": "CropGuard Advisory: Apple Scab has been CONFIRMED by Dr. Ananya Sharma (Lead Agronomist). Recommended immediate action: Apply protective bio-fungicide and isolate affected rows.",
+        "status": "SENT",
+        "timestamp": "2026-08-27T10:51:52+00:00"
+    },
+    {
+        "notification_id": "NOTIF-1787828168-669",
+        "farmer_id": "002",
+        "farmer_name": "sujith raj D",
+        "phone": "8870210307",
+        "disease": "Apple Scab",
+        "channel": "SMS & In-App",
+        "message": "CropGuard Advisory: Apple Scab has been CONFIRMED by Dr. Ananya Sharma (Lead Pathologist). Recommended immediate action: Apply protective bio-fungicide and isolate affected rows.",
+        "status": "SENT",
+        "timestamp": "2026-08-27T10:56:08+00:00"
+    }
+]

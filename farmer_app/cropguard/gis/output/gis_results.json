@@ -1,0 +1,224 @@
+{
+    "event_id": "EVENT-0001",
+    "disease": "Apple Scab",
+    "generated_at": "2026-08-27T10:56:12Z",
+    "analysis": {
+        "total_detections": 8,
+        "unique_farmers": 2,
+        "average_confidence": 0.6643,
+        "average_humidity_percent": 87.62
+    },
+    "spatial_analysis": {
+        "average_distance_km": 1.66,
+        "pairwise_distances": [
+            {
+                "i": 0,
+                "j": 1,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 0,
+                "j": 2,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 0.0
+            },
+            {
+                "i": 0,
+                "j": 3,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 0,
+                "j": 4,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 1.523
+            },
+            {
+                "i": 0,
+                "j": 5,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 0.0
+            },
+            {
+                "i": 0,
+                "j": 6,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 0,
+                "j": 7,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 3.179
+            },
+            {
+                "i": 1,
+                "j": 2,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 1.523
+            },
+            {
+                "i": 1,
+                "j": 3,
+                "farmer_a": "002",
+                "farmer_b": "002",
+                "distance_km": 0.0
+            },
+            {
+                "i": 1,
+                "j": 4,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 0.0
+            },
+            {
+                "i": 1,
+                "j": 5,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 1.523
+            },
+            {
+                "i": 1,
+                "j": 6,
+                "farmer_a": "002",
+                "farmer_b": "002",
+                "distance_km": 0.0
+            },
+            {
+                "i": 1,
+                "j": 7,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 4.669
+            },
+            {
+                "i": 2,
+                "j": 3,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 2,
+                "j": 4,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 1.523
+            },
+            {
+                "i": 2,
+                "j": 5,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 0.0
+            },
+            {
+                "i": 2,
+                "j": 6,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 2,
+                "j": 7,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 3.179
+            },
+            {
+                "i": 3,
+                "j": 4,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 0.0
+            },
+            {
+                "i": 3,
+                "j": 5,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 1.523
+            },
+            {
+                "i": 3,
+                "j": 6,
+                "farmer_a": "002",
+                "farmer_b": "002",
+                "distance_km": 0.0
+            },
+            {
+                "i": 3,
+                "j": 7,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 4.669
+            },
+            {
+                "i": 4,
+                "j": 5,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 1.523
+            },
+            {
+                "i": 4,
+                "j": 6,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 0.0
+            },
+            {
+                "i": 4,
+                "j": 7,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 4.669
+            },
+            {
+                "i": 5,
+                "j": 6,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 5,
+                "j": 7,
+                "farmer_a": "001",
+                "farmer_b": "001",
+                "distance_km": 3.179
+            },
+            {
+                "i": 6,
+                "j": 7,
+                "farmer_a": "002",
+                "farmer_b": "001",
+                "distance_km": 4.669
+            }
+        ],
+        "distance_score": 0.7503,
+        "humidity_score": 0.8762,
+        "confidence_score": 0.6643,
+        "weights": {
+            "distance": 0.5,
+            "humidity": 0.3,
+            "confidence": 0.2
+        },
+        "prototype_risk_score": 0.7709,
+        "prototype_risk_percentage": 77.09
+    },
+    "status": "MODERATE",
+    "map_output": "D:\\SIH26131-materials\\SIH26131-materials\\prototype_0.1\\farmer_app\\cropguard\\gis\\output\\analyzed_map.png"
+}

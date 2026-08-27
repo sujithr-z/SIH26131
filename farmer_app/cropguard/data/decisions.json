@@ -1,0 +1,29 @@
+[
+    {
+        "decision_id": "DEC-1787734937-5224",
+        "event_id": "EVENT-0001",
+        "action": "ALERT",
+        "disease": "Early Blight",
+        "risk_label": "82/100 HIGH",
+        "officer": "Agri. Officer",
+        "timestamp": "2026-08-26T09:02:17.560Z"
+    },
+    {
+        "decision_id": "DEC-1787826998-3922",
+        "event_id": "EVENT-0001",
+        "action": "ALERT",
+        "disease": "Apple Scab",
+        "risk_label": "HIGH OUTBREAK RISK",
+        "officer": "Dr. Ananya Sharma",
+        "timestamp": "2026-08-27T10:36:38+00:00"
+    },
+    {
+        "decision_id": "DEC-1787827912-3753",
+        "event_id": "EVENT-0001",
+        "action": "ALERT",
+        "disease": "Apple Scab",
+        "risk_label": "HIGH OUTBREAK RISK",
+        "officer": "Dr. Ananya Sharma",
+        "timestamp": "2026-08-27T10:51:52+00:00"
+    }
+]

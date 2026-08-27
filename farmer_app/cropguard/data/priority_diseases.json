@@ -1,0 +1,23 @@
+{
+    "priority_diseases": [
+        "Late Blight",
+        "Early Blight",
+        "Bacterial Blight",
+        "Bacterial Spot",
+        "Apple Scab",
+        "Black Rot",
+        "Cedar Apple Rust",
+        "Powdery Mildew",
+        "Common Rust",
+        "Northern Leaf Blight",
+        "Cercospora Leaf Spot"
+    ],
+    "config_metadata": {
+        "version": "1.1.0",
+        "last_updated": "2026-08-27",
+        "threshold_trigger_count": 1,
+        "cluster_radius_km": 15.0,
+        "temporal_window_days": 7,
+        "description": "Defines the full list of high-priority agricultural diseases monitored by the surveillance and GIS outbreak engines."
+    }
+}

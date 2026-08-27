@@ -1,0 +1,139 @@
+{
+    "events": [
+        {
+            "event_id": "EVENT-0001",
+            "disease": "Apple Scab",
+            "detection_count": 8,
+            "unique_farmer_count": 2,
+            "status": "TRIGGERED",
+            "generated_at": "2026-08-27T10:56:08Z",
+            "detections": [
+                {
+                    "observation_id": "OBS-000004",
+                    "farmer_id": "001",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_001_1787826903_aa7715ef.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:35:14+00:00",
+                    "latitude": 9.2712,
+                    "longitude": 76.4721,
+                    "weather": {
+                        "temperature_c": 27.6,
+                        "humidity_percent": 87,
+                        "wind_speed_kmh": 4.7
+                    }
+                },
+                {
+                    "observation_id": "OBS-000005",
+                    "farmer_id": "002",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_002_1787826914_2a6bcdb8.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:35:26+00:00",
+                    "latitude": 9.2645,
+                    "longitude": 76.46,
+                    "weather": {
+                        "temperature_c": 28.4,
+                        "humidity_percent": 89,
+                        "wind_speed_kmh": 5.7
+                    }
+                },
+                {
+                    "observation_id": "OBS-000006",
+                    "farmer_id": "001",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_001_1787826973_a0e8dfc6.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:36:24+00:00",
+                    "latitude": 9.2712,
+                    "longitude": 76.4721,
+                    "weather": {
+                        "temperature_c": 26.9,
+                        "humidity_percent": 94,
+                        "wind_speed_kmh": 10.4
+                    }
+                },
+                {
+                    "observation_id": "OBS-000007",
+                    "farmer_id": "002",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_002_1787826984_22b61d11.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:36:35+00:00",
+                    "latitude": 9.2645,
+                    "longitude": 76.46,
+                    "weather": {
+                        "temperature_c": 29.0,
+                        "humidity_percent": 85,
+                        "wind_speed_kmh": 6.2
+                    }
+                },
+                {
+                    "observation_id": "OBS-000008",
+                    "farmer_id": "001",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_001_1787826998_486405df.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:36:49+00:00",
+                    "latitude": 9.2645,
+                    "longitude": 76.46,
+                    "weather": {
+                        "temperature_c": 27.7,
+                        "humidity_percent": 80,
+                        "wind_speed_kmh": 10.2
+                    }
+                },
+                {
+                    "observation_id": "OBS-000009",
+                    "farmer_id": "001",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_001_1787827880_598db4cc.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:51:34+00:00",
+                    "latitude": 9.2712,
+                    "longitude": 76.4721,
+                    "weather": {
+                        "temperature_c": 26.4,
+                        "humidity_percent": 93,
+                        "wind_speed_kmh": 10.7
+                    }
+                },
+                {
+                    "observation_id": "OBS-000010",
+                    "farmer_id": "002",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_002_1787827894_2cd62740.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:51:47+00:00",
+                    "latitude": 9.2645,
+                    "longitude": 76.46,
+                    "weather": {
+                        "temperature_c": 29.2,
+                        "humidity_percent": 92,
+                        "wind_speed_kmh": 8.8
+                    }
+                },
+                {
+                    "observation_id": "OBS-000011",
+                    "farmer_id": "001",
+                    "crop": "Apple",
+                    "image_path": "uploads/api_001_1787827913_40b61378.jpg",
+                    "confidence": 0.6643,
+                    "timestamp": "2026-08-27T10:52:05+00:00",
+                    "latitude": 9.291,
+                    "longitude": 76.493,
+                    "weather": {
+                        "temperature_c": 28.4,
+                        "humidity_percent": 81,
+                        "wind_speed_kmh": 9.8
+                    }
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "total_events": 1,
+        "last_updated": "2026-08-27T10:56:08Z",
+        "description": "Derived surveillance event database storing triggered priority disease events for the geospatial computation stage."
+    }
+}

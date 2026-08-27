@@ -1,0 +1,141 @@
+{
+    "observations": [
+        {
+            "observation_id": "OBS-000001",
+            "farmer_id": "001",
+            "disease": "Late Blight",
+            "confidence": 0.94,
+            "timestamp": "2026-08-27T10:25:41+00:00",
+            "crop": "Tomato"
+        },
+        {
+            "observation_id": "OBS-000003",
+            "farmer_id": "004",
+            "disease": "Early Blight",
+            "confidence": 0.88,
+            "timestamp": "2026-08-27T10:25:42+00:00",
+            "crop": "Tomato"
+        },
+        {
+            "observation_id": "OBS-000004",
+            "farmer_id": "001",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:35:14+00:00",
+            "validation_status": "CONFIRMED",
+            "crop": "Apple",
+            "image_path": "uploads/api_001_1787826903_aa7715ef.jpg",
+            "latitude": 9.2712,
+            "longitude": 76.4721,
+            "expert_id": "Dr. Ananya Sharma (Lead Agronomist)",
+            "expert_notes": "Confirmed fungal lesion margins. Issued urgent copper bio-fungicide protocol."
+        },
+        {
+            "observation_id": "OBS-000005",
+            "farmer_id": "002",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:35:26+00:00",
+            "validation_status": "PENDING",
+            "crop": "Apple",
+            "image_path": "uploads/api_002_1787826914_2a6bcdb8.jpg",
+            "latitude": 9.2645,
+            "longitude": 76.46
+        },
+        {
+            "observation_id": "OBS-000006",
+            "farmer_id": "001",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:36:24+00:00",
+            "validation_status": "CONFIRMED",
+            "crop": "Apple",
+            "image_path": "uploads/api_001_1787826973_a0e8dfc6.jpg",
+            "latitude": 9.2712,
+            "longitude": 76.4721,
+            "expert_id": "Dr. Ananya Sharma (Lead Agronomist)",
+            "expert_notes": "Confirmed fungal lesion margins. Issued urgent copper bio-fungicide protocol."
+        },
+        {
+            "observation_id": "OBS-000007",
+            "farmer_id": "002",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:36:35+00:00",
+            "validation_status": "PENDING",
+            "crop": "Apple",
+            "image_path": "uploads/api_002_1787826984_22b61d11.jpg",
+            "latitude": 9.2645,
+            "longitude": 76.46
+        },
+        {
+            "observation_id": "OBS-000008",
+            "farmer_id": "001",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:36:49+00:00",
+            "validation_status": "PENDING",
+            "crop": "Apple",
+            "image_path": "uploads/api_001_1787826998_486405df.jpg"
+        },
+        {
+            "observation_id": "OBS-000009",
+            "farmer_id": "001",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:51:34+00:00",
+            "validation_status": "CONFIRMED",
+            "crop": "Apple",
+            "image_path": "uploads/api_001_1787827880_598db4cc.jpg",
+            "latitude": 9.2712,
+            "longitude": 76.4721,
+            "expert_id": "Dr. Ananya Sharma (Lead Agronomist)",
+            "expert_notes": "Confirmed fungal lesion margins. Issued urgent copper bio-fungicide protocol."
+        },
+        {
+            "observation_id": "OBS-000010",
+            "farmer_id": "002",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:51:47+00:00",
+            "validation_status": "CONFIRMED",
+            "crop": "Apple",
+            "image_path": "uploads/api_002_1787827894_2cd62740.jpg",
+            "latitude": 9.2645,
+            "longitude": 76.46,
+            "expert_id": "Dr. Ananya Sharma (Lead Pathologist)",
+            "expert_notes": "Apple Scab confirmed. Proceed with targeted bio-fungicide treatment."
+        },
+        {
+            "observation_id": "OBS-000011",
+            "farmer_id": "001",
+            "disease": "Apple Scab",
+            "confidence": 0.6643,
+            "timestamp": "2026-08-27T10:52:05+00:00",
+            "validation_status": "REJECTED",
+            "crop": "Apple",
+            "image_path": "uploads/api_001_1787827913_40b61378.jpg",
+            "expert_id": "Dr. Ananya Sharma (Lead Pathologist)",
+            "expert_notes": "Apple Scab confirmed. Proceed with targeted bio-fungicide treatment."
+        },
+        {
+            "observation_id": "OBS-000012",
+            "farmer_id": "002",
+            "disease": "Cercospora Leaf Spot",
+            "confidence": 0.763,
+            "timestamp": "2026-08-27T10:55:04+00:00",
+            "validation_status": "REJECTED",
+            "crop": "Corn",
+            "image_path": "uploads/farmer002_1787828084.webp",
+            "field_id": "FIELD-002",
+            "latitude": 9.2712,
+            "longitude": 76.4721,
+            "severity": "High",
+            "affected_area_percentage": 58.8,
+            "follow_up_to": null,
+            "model_version": "yolo-agri-v1",
+            "expert_id": "Dr. Ananya Sharma (Lead Pathologist)",
+            "expert_notes": "Cercospora Leaf Spot confirmed. Proceed with targeted bio-fungicide treatment."
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "field_id": "FIELD-001",
+    "farmer_id": "001",
+    "field_name": "North Orchard - Plot A",
+    "crop": "Apple",
+    "area_acres": 2.5,
+    "latitude": 9.2712,
+    "longitude": 76.4721,
+    "sowing_date": "2026-03-15"
+  },
+  {
+    "field_id": "FIELD-002",
+    "farmer_id": "002",
+    "field_name": "Riverside Farm - Sector 3",
+    "crop": "Tomato",
+    "area_acres": 1.8,
+    "latitude": 9.2645,
+    "longitude": 76.4600,
+    "sowing_date": "2026-05-10"
+  },
+  {
+    "field_id": "FIELD-003",
+    "farmer_id": "003",
+    "field_name": "Valley Maize Field",
+    "crop": "Corn",
+    "area_acres": 4.0,
+    "latitude": 9.2801,
+    "longitude": 76.4815,
+    "sowing_date": "2026-04-20"
+  }
+]

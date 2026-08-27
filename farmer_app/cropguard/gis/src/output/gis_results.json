@@ -1,0 +1,70 @@
+{
+    "event_id": "EVENT-0003",
+    "disease": "Early Blight",
+    "generated_at": "2026-08-26T07:13:54Z",
+    "analysis": {
+        "total_detections": 4,
+        "unique_farmers": 4,
+        "average_confidence": 0.942,
+        "average_humidity_percent": 85.5
+    },
+    "spatial_analysis": {
+        "average_distance_km": 2.58,
+        "pairwise_distances": [
+            {
+                "i": 0,
+                "j": 1,
+                "farmer_a": "001",
+                "farmer_b": "002",
+                "distance_km": 1.523
+            },
+            {
+                "i": 0,
+                "j": 2,
+                "farmer_a": "001",
+                "farmer_b": "003",
+                "distance_km": 2.928
+            },
+            {
+                "i": 0,
+                "j": 3,
+                "farmer_a": "001",
+                "farmer_b": "004",
+                "distance_km": 4.669
+            },
+            {
+                "i": 1,
+                "j": 2,
+                "farmer_a": "002",
+                "farmer_b": "003",
+                "distance_km": 1.43
+            },
+            {
+                "i": 1,
+                "j": 3,
+                "farmer_a": "002",
+                "farmer_b": "004",
+                "distance_km": 3.179
+            },
+            {
+                "i": 2,
+                "j": 3,
+                "farmer_a": "003",
+                "farmer_b": "004",
+                "distance_km": 1.75
+            }
+        ],
+        "distance_score": 0.6121,
+        "humidity_score": 0.855,
+        "confidence_score": 0.942,
+        "weights": {
+            "distance": 0.5,
+            "humidity": 0.3,
+            "confidence": 0.2
+        },
+        "prototype_risk_score": 0.751,
+        "prototype_risk_percentage": 75.1
+    },
+    "status": "MODERATE",
+    "map_output": "D:\\SIH26131\\prototype_0.1\\farmer_app\\cropguard\\gis\\src\\output\\analyzed_map.png"
+}

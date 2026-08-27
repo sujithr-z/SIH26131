@@ -1,0 +1,26 @@
+[
+  {
+    "weather_id": "WX-001",
+    "location_name": "Chengannur Central",
+    "latitude": 9.2712,
+    "longitude": 76.4721,
+    "temperature_c": 28.5,
+    "humidity_percent": 84.0,
+    "wind_speed_kmh": 14.2,
+    "rainfall_mm": 12.5,
+    "condition": "Humid / Overcast (High Fungal Spore Propagation Risk)",
+    "timestamp": "2026-08-27T08:00:00+05:30"
+  },
+  {
+    "weather_id": "WX-002",
+    "location_name": "Thiruvalla Sector",
+    "latitude": 9.2645,
+    "longitude": 76.4600,
+    "temperature_c": 29.1,
+    "humidity_percent": 81.0,
+    "wind_speed_kmh": 11.8,
+    "rainfall_mm": 8.0,
+    "condition": "Moderate Rain",
+    "timestamp": "2026-08-27T08:00:00+05:30"
+  }
+]
